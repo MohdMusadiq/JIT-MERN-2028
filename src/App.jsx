@@ -6,29 +6,17 @@ import Dashboard from "./components/Dashboard";
 import {Routes, Route} from "react-router-dom"
 import Tasks from "./components/Tasks";
 import TaskDetails from "./components/TaskDetails";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function App(){
 
-  const [tasks, setTasks] = useState([
-          {
-              id:1,
-              title:"Learn React",
-              description:"Understanding Components",
-              status: "Completed"
-          },
-          {
-              id:2,
-              title:"Learn JavaScript",
-              description:"Understanding Variables, Functions",
-              status: "Pending"
-          },
-          {   id:3,
-              title:"Learn MongoDB",
-              description:"Understanding Databases",
-              status: "Pending"
-          }
-          
-      ]);
+  const [tasks, setTasks] = useState([]);
+      useEffect(() => {
+        fetch("http://localhost:5050/api/tasks")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      }, [])  
 
   return (
     <div>
@@ -37,7 +25,7 @@ function App(){
         <Route path="/" element={<Dashboard tasks={tasks} setTasks={setTasks} />} />
         <Route path="/tasks" element={<Tasks tasks={tasks} />} />
         <Route path="/tasks/:id" 
-               element={<TaskDetails tasks={tasks} />} />
+               element={<TaskDetails tasks = {tasks} />} />
       </Routes>
     </div>
   );
