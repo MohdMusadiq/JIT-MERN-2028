@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 function Navbar(){
     return(
         <nav>
                 <h2>student task portal</h2>
                 <div className="nav-links">
-                    <span>Dashboard</span>
-                    <span>tasks</span>
+                    <Link to={"/"}>Home</Link>
+                    <Link to={"/tasks"}>Tasks</Link>
                 </div>
         </nav>
     )
